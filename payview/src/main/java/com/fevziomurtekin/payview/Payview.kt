@@ -50,6 +50,12 @@ class Payview : NestedScrollView, View.OnFocusChangeListener {
     private var cardYearTextSize : Int = 13
     private var cardMonthTextSize : Int = 13
     private var cardCvTextSize : Int = 14
+    private var cardBtnPayText : String = resources.getString(R.string.pay)
+    private var cardNameHintText : String = resources.getString(R.string.cardname)
+    private var cardNoHintText : String = resources.getString(R.string.cardno)
+    private var cardMonthHintText : String = resources.getString(R.string.cardmonth)
+    private var cardYearHintText : String = resources.getString(R.string.cardyear)
+    private var cardCvHintText : String = resources.getString(R.string.cardcv)
 
 
     /** Views on layout.*/
@@ -93,10 +99,10 @@ class Payview : NestedScrollView, View.OnFocusChangeListener {
 
     constructor(context: Context,attrs: AttributeSet?,defStyleAttr:Int) :super(context,attrs,defStyleAttr){ init(context,attrs,defStyleAttr,0)}
 
-  /*  @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
-        init(context, attrs, defStyleAttr, defStyleRes)
-    }*/
+    /*  @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+      constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
+          init(context, attrs, defStyleAttr, defStyleRes)
+      }*/
 
 
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
@@ -129,18 +135,30 @@ class Payview : NestedScrollView, View.OnFocusChangeListener {
                 cardNoHelperText=it.getString(R.styleable.Payview_cardNumberHelperText).let { s-> s?.toString()
                     ?: cardNoHelperText }
                 cardMonthErrorText=it.getString(R.styleable.Payview_cardMonthErrorText).let { s-> s?.toString()
-                        ?: cardMonthErrorText }
+                    ?: cardMonthErrorText }
                 cardYearErrorText=it.getString(R.styleable.Payview_cardYearErrorText).let { s-> s?.toString()
-                        ?: cardYearErrorText }
+                    ?: cardYearErrorText }
                 cardCvErrorText=it.getString(R.styleable.Payview_cardCvErrorText).let { s-> s?.toString()
-                        ?: cardCvErrorText }
+                    ?: cardCvErrorText }
                 cardExpiredError=it.getString(R.styleable.Payview_cardExpiredErrorText).let { s-> s?.toString()
-                        ?: cardExpiredError }
+                    ?: cardExpiredError }
                 cardNameTextSize=it.getInt(R.styleable.Payview_cardNameTextSize,14)
                 cardNoTextSize=it.getInt(R.styleable.Payview_cardNoTextSize,14)
                 cardYearTextSize=it.getInt(R.styleable.Payview_cardYearTextSize,13)
                 cardMonthTextSize=it.getInt(R.styleable.Payview_cardMonthTextSize,13)
                 cardCvTextSize=it.getInt(R.styleable.Payview_cardCvTextSize,14)
+                cardBtnPayText=it.getString(R.styleable.Payview_cardBtnPayText).let { s-> s?.toString()
+                    ?: cardBtnPayText }
+                cardNameHintText=it.getString(R.styleable.Payview_cardNameHintText).let { s-> s?.toString()
+                    ?: cardNameHintText }
+                cardNoHintText=it.getString(R.styleable.Payview_cardNoHintText).let { s-> s?.toString()
+                    ?: cardNoHintText }
+                cardMonthHintText=it.getString(R.styleable.Payview_cardMonthHintText).let { s-> s?.toString()
+                    ?: cardMonthHintText }
+                cardYearHintText=it.getString(R.styleable.Payview_cardYearHintText).let { s-> s?.toString()
+                    ?: cardYearHintText }
+                cardCvHintText=it.getString(R.styleable.Payview_cardCvHintText).let { s-> s?.toString()
+                    ?: cardCvHintText }
                 cardAnimationType=it.getInt(R.styleable.Payview_cardAnimationType,AnimationType.HORIZONTAL)
                 initViews()
                 initData()
@@ -219,6 +237,14 @@ class Payview : NestedScrollView, View.OnFocusChangeListener {
         tev_card_year.textSize = cardYearTextSize.toFloat()
         tev_card_month.textSize = cardMonthTextSize.toFloat()
         tev_card_cv.textSize = cardCvTextSize.toFloat()
+        btn_pay.text = cardBtnPayText
+
+        // Custom Hint Text
+        til_card_name.hint = cardNameHintText
+        til_card_no.hint = cardNoHintText
+        til_card_month.hint = cardMonthHintText
+        til_card_year.hint = cardYearHintText
+        til_card_cv.hint = cardCvHintText
 
         tev_card_name.onFocusChangeListener = this
         tev_card_no.onFocusChangeListener = this
@@ -242,44 +268,44 @@ class Payview : NestedScrollView, View.OnFocusChangeListener {
 
         tev_card_no.addTextChangedListener(object :TextWatcher{
             override fun afterTextChanged(s: Editable?) {
-                    Log.d("PayView"," length : ${s.toString().length}")
-                    when (s.toString().length) {
-                        in 0..3 -> {
-                            tv_card_one.text = s.toString()
-                            tv_card_two.text = ""
-                            tv_card_three.text = ""
-                            tv_card_four.text = ""
-                        }
-                        in 5..8 -> {
-                            Log.d("PayView", "1")
-                            tv_card_one.text = s.toString().substring(0, 4)
-                            tv_card_two.text = s.toString().substring(5, s.toString().length)
-                            tv_card_three.text = ""
-                            tv_card_four.text = ""
-
-                        }
-                        in 10..13 -> {
-                            Log.d("PayView", "2")
-                            tv_card_one.text = s.toString().substring(0, 4)
-                            tv_card_two.text = s.toString().substring(5, 9)
-                            tv_card_three.text = s.toString().substring(10, s.toString().length)
-                            tv_card_four.text = ""
-                        }
-                        in 15..19 -> {
-                            Log.d("PayView", "3")
-                            tv_card_one.text = s.toString().substring(0, 4)
-                            tv_card_two.text = s.toString().substring(5, 9)
-                            tv_card_three.text = s.toString().substring(10, 14)
-                            tv_card_four.text = s.toString().substring(14, s.toString().length)
-                        }
-                        4,9,14-> {
-                            if(!isRemoveText)
-                                s?.insert(s.toString().length," ")
-                            else
-                                s?.delete(s.toString().length-1,s.toString().length)
-                        }
+                Log.d("PayView"," length : ${s.toString().length}")
+                when (s.toString().length) {
+                    in 0..3 -> {
+                        tv_card_one.text = s.toString()
+                        tv_card_two.text = ""
+                        tv_card_three.text = ""
+                        tv_card_four.text = ""
                     }
-                    initData()
+                    in 5..8 -> {
+                        Log.d("PayView", "1")
+                        tv_card_one.text = s.toString().substring(0, 4)
+                        tv_card_two.text = s.toString().substring(5, s.toString().length)
+                        tv_card_three.text = ""
+                        tv_card_four.text = ""
+
+                    }
+                    in 10..13 -> {
+                        Log.d("PayView", "2")
+                        tv_card_one.text = s.toString().substring(0, 4)
+                        tv_card_two.text = s.toString().substring(5, 9)
+                        tv_card_three.text = s.toString().substring(10, s.toString().length)
+                        tv_card_four.text = ""
+                    }
+                    in 15..19 -> {
+                        Log.d("PayView", "3")
+                        tv_card_one.text = s.toString().substring(0, 4)
+                        tv_card_two.text = s.toString().substring(5, 9)
+                        tv_card_three.text = s.toString().substring(10, 14)
+                        tv_card_four.text = s.toString().substring(14, s.toString().length)
+                    }
+                    4,9,14-> {
+                        if(!isRemoveText)
+                            s?.insert(s.toString().length," ")
+                        else
+                            s?.delete(s.toString().length-1,s.toString().length)
+                    }
+                }
+                initData()
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -354,7 +380,7 @@ class Payview : NestedScrollView, View.OnFocusChangeListener {
         payModel = PayModel(
             tv_card_owner.text.toString(),
             tv_card_year.text.toString().let {
-             if(it == "") 0 else it.toInt()
+                if(it == "") 0 else it.toInt()
             },
             tv_card_month.text.toString().let {
                 if(it == "") 0 else it.toInt()
@@ -491,51 +517,67 @@ class Payview : NestedScrollView, View.OnFocusChangeListener {
         Log.d("PayView","card no: ${tev_card_no.text?.toString()?.replace(" ","")}")
         this@Payview.apply {
             if(tev_card_name.text.toString().isNotEmpty()
-                    && tev_card_cv.text.toString().length==3
-                    && tev_card_month.text.toString().length==2
-                    && tev_card_year.text.toString().length==2
-                    && tev_card_no.text?.toString()?.replace(" ","")?.length==16){
+                && tev_card_cv.text.toString().length==3
+                && tev_card_month.text.toString().length==2
+                && tev_card_year.text.toString().length==2
+                && tev_card_no.text?.toString()?.replace(" ","")?.length in 14..16){
 
                 /** card month/card year compare to now date.*/
                 val nowMonth = Calendar.getInstance().get(Calendar.MONTH)
                 val nowYear = Calendar.getInstance().get(Calendar.YEAR).toString().substring(2,4).toInt()
                 return if(nowYear>tev_card_year.text.toString().toInt()
-                        || (nowYear==tev_card_year.text.toString().toInt()
-                                && nowMonth>=tev_card_month.text.toString().toInt())){
+                    || (nowYear==tev_card_year.text.toString().toInt()
+                            && nowMonth>=tev_card_month.text.toString().toInt())){
                     tev_card_year.error = cardExpiredError
                     tev_card_month.error = cardExpiredError
                     false
                 }else true
             }
             else{
-                if(tev_card_name.text.isNullOrEmpty())
+                var valid = true
+                if(tev_card_name.text.isNullOrEmpty()) {
                     tev_card_name.error = cardNameHelperText
-                if(tev_card_no.text?.toString()?.replace(" ","")?.length!=16)
+                    valid = false
+                }
+                if(tev_card_no.text?.toString()?.replace(" ","")?.length!=16) {
                     tev_card_no.error = cardNoHelperText
+                    valid = false
+                }
                 if(tev_card_cv.text.isNullOrEmpty()
-                        || tev_card_cv.text.toString().length!=3)
+                    || tev_card_cv.text.toString().length!=3) {
                     tev_card_cv.error = cardCvErrorText
+                    valid = false
+                }
 
 
                 if(tev_card_year.text.isNullOrEmpty()
-                        || tev_card_year.text.toString().length!=2
-                        || tev_card_year.text.toString().toInt()>99)
+                    || tev_card_year.text.toString().length!=2
+                    || tev_card_year.text.toString().toInt()>99) {
                     tev_card_year.error = cardYearErrorText
-                if(tev_card_month.text.isNullOrEmpty()
-                        || tev_card_month.text.toString().length!=2
-                        || tev_card_month.text.toString().toInt()<12)
-                    tev_card_month.error = cardMonthErrorText
-
-                /** card month/card year compare to now date.*/
-                val nowMonth = Calendar.getInstance().get(Calendar.MONTH)
-                val nowYear = Calendar.getInstance().get(Calendar.YEAR).toString().substring(2,4).toInt()
-                if(nowYear>tev_card_year.text.toString().toInt()
-                        || (nowYear==tev_card_year.text.toString().toInt()
-                                && nowMonth>=tev_card_month.text.toString().toInt())){
-                    tev_card_year.error = cardExpiredError
-                    tev_card_month.error = cardExpiredError
+                    valid = false
                 }
-                return false
+                if(tev_card_month.text.isNullOrEmpty()
+                    || tev_card_month.text.toString().length!=2
+                    || tev_card_month.text.toString().toInt()<12) {
+                    tev_card_month.error = cardMonthErrorText
+                    valid = false
+                }
+
+                if (valid) {
+                    /** card month/card year compare to now date.*/
+                    val nowMonth = Calendar.getInstance().get(Calendar.MONTH)
+                    val nowYear =
+                        Calendar.getInstance().get(Calendar.YEAR).toString().substring(2, 4).toInt()
+                    if (nowYear > tev_card_year.text.toString().toInt()
+                        || (nowYear == tev_card_year.text.toString().toInt()
+                                && nowMonth >= tev_card_month.text.toString().toInt())
+                    ) {
+                        tev_card_year.error = cardExpiredError
+                        tev_card_month.error = cardExpiredError
+                        valid = false
+                    }
+                }
+                return valid
             }
         }
     }
