@@ -92,7 +92,7 @@ class Payview : NestedScrollView, View.OnFocusChangeListener {
     private var isRemoveText = false
     private var payModel:PayModel?=null
     private var onChangeListener:OnChangelistener?=null
-    private var cardType : CardType = CardType.MASTERCARD
+    var cardType : CardType = CardType.MASTERCARD
     private var cardAnimationType:Int = AnimationType.HORIZONTAL
 
     constructor(context:Context) : super(context) { init(context,null,0,0) }

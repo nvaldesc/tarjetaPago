@@ -26,7 +26,6 @@ class ActivityMain : AppCompatActivity(){
             }
 
         })
-
         payview.setPayOnclickListener(View.OnClickListener {
             Log.d("PayView "," clicked. iss Fill all form Component : ${payview.isFillAllComponents}")
         })
