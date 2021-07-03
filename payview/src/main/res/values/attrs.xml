@@ -25,6 +25,7 @@
         <attr name="cardMonthHintText" format="string" />
         <attr name="cardYearHintText" format="string" />
         <attr name="cardCvHintText" format="string" />
+        <attr name="cardNameOwnerText" format="string" />
 
     </declare-styleable>
 

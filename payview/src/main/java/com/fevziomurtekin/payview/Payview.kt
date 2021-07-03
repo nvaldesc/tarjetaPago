@@ -51,11 +51,13 @@ class Payview : NestedScrollView, View.OnFocusChangeListener {
     private var cardMonthTextSize : Int = 13
     private var cardCvTextSize : Int = 14
     private var cardBtnPayText : String = resources.getString(R.string.pay)
+    private var cardNameOwnerText : String = resources.getString(R.string.cardnameOwner)
     private var cardNameHintText : String = resources.getString(R.string.cardname)
     private var cardNoHintText : String = resources.getString(R.string.cardno)
     private var cardMonthHintText : String = resources.getString(R.string.cardmonth)
     private var cardYearHintText : String = resources.getString(R.string.cardyear)
     private var cardCvHintText : String = resources.getString(R.string.cardcv)
+
 
 
     /** Views on layout.*/
@@ -159,6 +161,8 @@ class Payview : NestedScrollView, View.OnFocusChangeListener {
                     ?: cardYearHintText }
                 cardCvHintText=it.getString(R.styleable.Payview_cardCvHintText).let { s-> s?.toString()
                     ?: cardCvHintText }
+                cardNameOwnerText=it.getString(R.styleable.Payview_cardNameOwnerText).let { s-> s?.toString()
+                    ?: cardNameOwnerText }
                 cardAnimationType=it.getInt(R.styleable.Payview_cardAnimationType,AnimationType.HORIZONTAL)
                 initViews()
                 initData()
@@ -222,6 +226,7 @@ class Payview : NestedScrollView, View.OnFocusChangeListener {
 
 
         tv_card_owner.setTextColor(cardTextColor)
+        tv_card_owner.setText(cardNameOwnerText)
         tv_card_one.setTextColor(cardTextColor)
         tv_card_two.setTextColor(cardTextColor)
         tv_card_three.setTextColor(cardTextColor)

@@ -154,7 +154,7 @@
                     android:layout_marginBottom="20dp"
                     android:layout_marginRight="20dp"
                     android:textColor="@android:color/black"
-                    android:text="Name Surname"
+                    android:text="@string/cardnameOwner"
                     android:textSize="15sp"
                     android:textAllCaps="true"
                     android:layout_above="@+id/lv_card_layout"
