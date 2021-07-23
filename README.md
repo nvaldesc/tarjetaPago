@@ -72,20 +72,18 @@ dependencies {
 
 ## Listeners
 
-```kotlin
-   payview.setOnDataChangedListener(object : Payview.OnChangelistener{
-            override fun onChangelistener(payModel: PayModel?, isFillAllComponent: Boolean) {
-                Log.d("PayView", "data : ${payModel?.cardOwnerName} \n " +
-                        "is Fill all form component : $isFillAllComponents")
-
-            }
-
-        })
+```java
         
-    payview.setPayOnclickListener(View.OnClickListener {
-        Log.d("PayView "," clicked. iss Fill all form Component : ${payview.isFillAllComponents}")
+   payview.setPayOnclickListener(v -> {
+            if(payview.isFillAllComponents()){
 
-    })
+                TarjetaBancaria tb = new TarjetaBancaria(1,tev_card_no.getText().toString(), BancoEmisor.COOPERTARIVA_COOPEUCH,
+                        new Cliente(123456789,tev_card_name.getText().toString()),false,Integer.parseInt(tev_card_cv.getText().toString()),
+                        new Fecha(tev_card_month.getText().toString(),tev_card_year.getText().toString()), NombreTarjeta.valueOf(payview.getCardType().toString()));
+                CustomDialogGuardarTarjeta cdgt = new CustomDialogGuardarTarjeta(RegistroTarjetaActivity.this,tb);
+                cdgt.show();
+            }
+        });
       
 ```
 
